@@ -1,0 +1,67 @@
+<head>
+
+    <title>BioBots</title>
+
+    <link rel="stylesheet" type="text/css" href="style_sheet.css">
+
+    <link rel="icon" type="image/gif" href="images/B.gif"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="js/data.js"></script>
+
+</head>
+
+<body>
+
+<!-- Create a banner across the top of the site with the BioBots logo -->
+<div id = 'banner'>
+
+    <img src='images/biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
+
+    <a href="main.html" style="padding-left:20px;">Home Page</a>
+    
+    <a href="parameters.html" style="padding-left:10px;">Parameters</a>
+
+    <a href="mydata.html" style="padding-left:10px;">My Results</a>
+
+    <a href="login.html" style="padding-left:10px;">Sign Out</a>
+
+</div>
+
+<div style = "position:fixed; top:120px; left:20px;">
+<h2 id = 'header'> </h2>
+
+<p>Take a look at the 'Parameters' page, to access data accumulated from all BioBots users, or at the 'My Results' page, to see only the data from your print sessions! <br><br> For more information about BioBots, check out the main website here: <a href="https://www.biobots.io/">BioBots Main Site</a></p><br>
+
+<!-- A message for Chrome users -->
+<p id = 'note_for_chrome' style = "display:none;">ATTENTION! Are you using Chrome? Cookies can't be stored and accessed across local files using Chrome, so for the full experience try loading 'login.html' into Firefox or Safari (especially Firefox :P)! If you aren't using Chrome and are seeing this message, make sure you logged in either as 'admin' or using a BioBots user email in the 'login.html' page.</p>
+
+</div>
+
+<script>
+
+// Get the email address used to sign in
+var curr_user;
+var cookieName = "email=";
+var cookies = document.cookie.split(';');
+for (var i = 0; i < cookies.length; i++) {
+    var c = cookies[i];
+    while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+    }
+    if (c.indexOf(cookieName) == 0) {
+        var curr_user = c.substring(cookieName.length, c.length);
+    }
+}
+
+document.getElementById('header').innerHTML = 'Welcome to BioBots, ' + curr_user + '!';
+
+if (curr_user === undefined || curr_user === null) {
+    document.getElementById('note_for_chrome').style = "display:'';";
+}
+
+</script>
+
+
+</body>

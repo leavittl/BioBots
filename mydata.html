@@ -1,0 +1,201 @@
+<head>
+
+    <title>BioBots</title>
+
+    <link rel="stylesheet" type="text/css" href="style_sheet.css">
+
+    <link rel="icon" type="image/gif" href="images/B.gif"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="js/data.js"></script>
+
+    <script src="js/table_fns.js"></script>
+
+    <script src="js/sorttable.js"></script>
+
+</head>
+
+<body>
+
+<!-- Create a banner across the top of the site with the BioBots logo -->
+<div id = 'banner'>
+
+    <img src='images/biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
+
+    <a href="main.html" style="padding-left:20px;">Home Page</a>
+
+    <a href="parameters.html" style="padding-left:10px;">Parameters</a>
+
+    <a href="mydata.html" style="padding-left:10px;">My Results</a>
+
+    <a href="login.html" style="padding-left:10px;">Sign Out</a>
+
+</div>
+
+<!-- Add text boxes where the user can input values for print data -->
+<div id = 'form'>
+
+    <label><b> PRINT DATA </b></label>
+    <label> Live Percent: </label>
+    <input type = "number" name = "lp" id = "lp" step= "0.01" max = "100"  style="width:50px;" onchange = "updateTable(1);"/>
+    <label> Dead Percent: </label>
+    <input type = "number" name = "dp" id = "dp" step= "0.01" min = "0" max = "100"  style="width:50px;" onchange = "updateTable(1);"/>
+    <label> Elasticity: </label>
+    <input type = "number" name = "el" id = "el" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
+
+    <label><b>RESOLUTION:</b></label>
+    <label>Number of Layers (LN):</label>
+    <input type = "number" name = "nl" id = "nl" step= "1" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
+    <label>Layer Height (LH): </label>
+    <input type = "number" name = "hl" id = "hl" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/> <br><br>
+
+    <label><b> PRESSURE: </b></label>
+    <label> Extruder #1 (E1P): </label>
+    <input type = "number" name = "pr1" id = "pr1" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
+    <label> Extruder #2 (E2P): </label>
+    <input type = "number" name = "pr2" id = "pr2" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
+
+    <label><b> CROSSLINKING: </b></label>
+    <label> Enabled? (CLE): </label>
+    <input type= "checkbox" name = "cl_enabled" id = "cl_enabled" value = "isEnabled" onchange = "handleCheckbox(1);">
+    <label> Duration: </label>
+    <input type = "number" name = "dur" id = "dur" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
+    <label> Intensity: </label>
+    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/> <br><br>
+
+</div>
+
+<script>
+
+// Get the email address used to sign in
+var curr_user;
+var cookieName = "email=";
+var cookies = document.cookie.split(';');
+for (var i = 0; i < cookies.length; i++) {
+	var c = cookies[i];
+	while (c.charAt(0) == ' ') {
+		c = c.substring(1);
+	}
+	if (c.indexOf(cookieName) == 0) {
+		var curr_user = c.substring(cookieName.length, c.length);
+	}
+}
+// The user whose print data we will display (may be different than the current user, if the user who is logged in is the admin)
+var user = curr_user;
+
+
+</script>
+
+
+<div id = 'mydata_main'>
+
+
+<h2> User Data </h2>
+<strong> This page displays your data, only. Again, you can sort through the data by entering values into the fields above, see statistics in the table on the right, and sort the columns by clicking on their headers!</strong><br><br>
+
+<!-- This label and text box will only be visible when the admin is logged in -->
+<label id = 'select' style="display:none;"> Select a user: </label>
+<input type = "text" id = "user" style="display:none;" onchange = "handleAdmin();"/>
+
+<script>
+
+if (curr_user === 'admin') {
+	document.getElementById('select').style = "display:label;";
+	document.getElementById('user').style = "display:text;";
+}
+
+</script>
+
+<br><br>
+
+<!-- Create and populate the data table -->
+<div id = 'table1_container'>
+
+<table id = 'table' class = 'sortable'>
+    <thread>
+        <tr>
+        	<th style = 'border-right:solid 1px #c00'>File</th>
+            <th>Live %</th>
+            <th>Dead %</th>
+            <th style = 'border-right:solid 1px #c00'>Elasticity</th>
+            <th>E1P</th>
+            <th style = 'border-right:solid 1px #c00'>E2P</th>
+            <th>CLE</th>
+            <th>Duration</th>
+            <th style = 'border-right:solid 1px #c00'>Intensity</th>
+            <th>LN</th>
+            <th>LH</th>
+        </tr>
+    </thread>
+    <tbody><tr></tr></tbody>
+</table>
+
+</div>
+
+<!-- Create another table, which will display statistics from the first table -->
+<div id = 'table2_container'>
+
+<table id = 'table_of_stats'>
+    <thread>
+        <tr>
+            <th></th>
+            <th>Live %</th>
+            <th>Dead %</th>
+            <th style = 'border-right:solid 1px #c00'>Elasticity</th>
+            <th>E1P</th>
+            <th style = 'border-right:solid 1px #c00'>E2P</th>
+            <th>CLE</th>
+            <th>Duration</th>
+            <th style = 'border-right:solid 1px #c00'>Intensity</th>
+            <th>LN</th>
+            <th>LH</th>
+        </tr>
+    </thread>
+    <tbody>
+        <tr>
+            <td><b>Average</b></td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td><b>Std. Dev.</b></td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+<script>
+
+var tab = document.getElementById('table');
+var tab2 = document.getElementById('table_of_stats');
+
+if (!(curr_user === "admin")) {
+	populateTable(curr_user);
+}
+
+</script>
+
+    
+</div>
+
+</body>

@@ -1,0 +1,71 @@
+<head>
+
+    <title>BioBots</title>
+
+    <link rel="stylesheet" type="text/css" href="style_sheet.css">
+
+    <link rel="icon" type="image/gif" href="images/B.gif"/>
+
+    <script src="js/data.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<!-- A function for redirecting the user to the main page, if a valid username and password are entered -->
+	<script>
+
+	function tryLogin() {
+
+		var email = document.getElementById('email').value;
+
+		var password = document.getElementById('password').value;
+
+		var validEmail = false;
+
+		// You can login either by typing "admin" and a password (any password will work for this web app) or by entering in the email address of a BioBots user and, again, any password
+		if (email === "admin") {
+			validEmail = true;
+		}
+		else {
+			for (var i = 0; i < json.length; i++) {
+
+				if (json[i].user_info.email === email) {
+					validEmail = true;
+					break;
+				}
+			}
+		}
+
+		if (!validEmail) {
+			alert("Sorry! Invalid email. Try again. (The valid emails are of the format user#@gmail.com, where # is a number 0-99. You can also login as 'admin'.)");
+		}
+
+		else if (password === '') {
+			alert("Please enter your password! (You can enter anything here, for the purpose of this web-app)");
+		}
+
+		else {
+			document.cookie = 'email='+email+";";
+			location.href = 'main.html';
+		}
+	}
+
+	</script>
+
+	<div id = 'login'>
+
+		<img src='images/biobots.gif' alt='BioBots Logo' style='width:300px;height:140px'></img>
+
+		<h1>Sign in to continue to BioBots!</h1>
+
+		<label>Email Address</label><br><br>
+		<input type = "text" id = "email"><br><br>
+		<label>Password</label><br><br>
+		<input type = "password" id = "password"><br><br>
+		<input type = "submit" value = "Submit"  onclick = "tryLogin()">
+	</div>
+
+</body>

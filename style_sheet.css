@@ -1,0 +1,69 @@
+
+body {
+	
+	background : #ffffff;
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ffffff 51%, #e8c9cc 68%, #ea9aa3 82%, #f23a3a 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ffffff 51%,#e8c9cc 68%,#ea9aa3 82%,#f23a3a 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #ffffff 0%,#ffffff 51%,#e8c9cc 68%,#ea9aa3 82%,#f23a3a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+ 	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#banner {
+	background-color: #FFFFFF;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+#elasticity {
+	border-right: 1px solid #000;
+}
+
+#form {
+	background-color: #FFFFFF;
+	position: fixed;
+	left: 0;
+	top: 93;
+	width: 100%;
+	padding-top: 20px;
+}
+
+#login {
+	outline: 4px solid #FF0000;
+	outline-offset: 30px;
+	position: absolute;
+	left: 30%;
+	top: 10%;
+}
+
+#table {
+	padding-left: 25px;
+}
+
+label {
+    float:left;
+    margin:4px;
+}
+
+input {
+    float:left;
+    margin:2px;
+}
+
+#param_info {
+	margin-top: 200;
+}
+
+#table2_container {
+	position: fixed;
+	left: 630;
+	top: 360;
+	outline: 2px solid #FF0000;
+}
+
+#mydata_main {
+	margin-top: 220;
+}

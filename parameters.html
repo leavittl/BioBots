@@ -1,0 +1,174 @@
+<head>
+
+    <title>BioBots</title>
+
+    <link rel="stylesheet" type="text/css" href="style_sheet.css">
+
+    <link rel="icon" type="image/gif" href="images/B.gif"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="js/data.js"></script>
+
+    <script src="js/table_fns.js"></script>
+
+    <script src="js/sorttable.js"></script>
+
+</head>
+
+<body>
+
+<!-- Create a banner across the top of the site with the BioBots logo -->
+<div id = 'banner'>
+
+    <img src='images/biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
+
+    <a href="main.html" style="padding-left:20px;">Home Page</a>
+    
+    <a href="parameters.html" style="padding-left:10px;">Parameters</a>
+
+    <a href="mydata.html" style="padding-left:10px;">My Results</a>
+
+    <a href="login.html" style="padding-left:10px;">Sign Out</a>
+
+</div>
+
+<!-- Add text boxes where the user can input values for print data -->
+<div id = 'form'>
+
+    <label><b> PRINT DATA </b></label>
+    <label> Live Percent: </label>
+    <input type = "number" name = "lp" id = "lp" step= "0.01" max = "100"  style="width:50px;" onchange = "updateTable(0);"/>
+    <label> Dead Percent: </label>
+    <input type = "number" name = "dp" id = "dp" step= "0.01" min = "0" max = "100"  style="width:50px;" onchange = "updateTable(0);"/>
+    <label> Elasticity: </label>
+    <input type = "number" name = "el" id = "el" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
+
+    <label><b>RESOLUTION:</b></label>
+    <label>Number of Layers (LN):</label>
+    <input type = "number" name = "nl" id = "nl" step= "1" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
+    <label>Layer Height (LH): </label>
+    <input type = "number" name = "hl" id = "hl" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/> <br><br>
+
+    <label><b> PRESSURE: </b></label>
+    <label> Extruder #1 (E1P): </label>
+    <input type = "number" name = "pr1" id = "pr1" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
+    <label> Extruder #2 (E2P): </label>
+    <input type = "number" name = "pr2" id = "pr2" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
+
+    <label><b> CROSSLINKING: </b></label>
+    <label> Enabled? (CLE): </label>
+    <input type= "checkbox" name = "cl_enabled" id = "cl_enabled" value = "isEnabled" onchange = "handleCheckbox(0);">
+    <label> Duration: </label>
+    <input type = "number" name = "dur" id = "dur" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
+    <label> Intensity: </label>
+    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/> <br><br>
+
+</div>
+
+
+<div id = 'param_info'>
+
+<h2> Parameter Analysis </h2>
+<strong> Use this page to play around with parameters! If you have a target value for your print data, or if you have certain parameter values that you need to use for your bioprints, enter those into the fields above. Then, the table below will update to show you only the information from print sessions with values close to the ones you selected (within 10%). You can use this page to make smart decisions when selecting your print parameters -- that is, instead of using trial and error to develop the perfect printing protocol, you can look through what has and hasn't worked well for other BioBots users. The columns are sortable, too! </strong><br><br>
+
+</div>
+
+<div id = 'table1_container'>
+
+<!-- Create and populate the data table -->
+<table id = 'table' class = 'sortable'>
+    <thread>
+        <tr>
+            <th>Live %</th>
+            <th>Dead %</th>
+            <th style = 'border-right:solid 1px #c00'>Elasticity</th>
+            <th>E1P</th>
+            <th style = 'border-right:solid 1px #c00'>E2P</th>
+            <th>CLE</th>
+            <th>Duration</th>
+            <th style = 'border-right:solid 1px #c00'>Intensity</th>
+            <th>LN</th>
+            <th>LH</th>
+        </tr>
+    </thread>
+</table>
+
+</div>
+
+<!-- Create another table, which will display statistics from the first table -->
+<div id = 'table2_container'>
+
+<table id = 'table_of_stats'>
+    <thread>
+        <tr>
+            <th></th>
+            <th>Live %</th>
+            <th>Dead %</th>
+            <th style = 'border-right:solid 1px #c00'>Elasticity</th>
+            <th>E1P</th>
+            <th style = 'border-right:solid 1px #c00'>E2P</th>
+            <th>CLE</th>
+            <th>Duration</th>
+            <th style = 'border-right:solid 1px #c00'>Intensity</th>
+            <th>LN</th>
+            <th>LH</th>
+        </tr>
+    </thread>
+    <tbody>
+        <tr>
+            <td><b>Average</b></td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td><b>Std. Dev.</b></td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td style = 'border-right:solid 1px #c00'>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+<script>
+
+var tab = document.getElementById('table');
+var tab2 = document.getElementById('table_of_stats');
+
+var tr;
+for (var i = 0; i < json.length; i++) {
+    tr = $('<tr/>');
+    tr.id = 'row' + String(i);
+    tr.append("<td>" + json[i].print_data.livePercent + "</td>");
+    tr.append("<td>" + json[i].print_data.deadPercent + "</td>");
+    tr.append("<td style = 'border-right:solid 1px #c00'>" + json[i].print_data.elasticity + "</td>");
+    tr.append("<td>" + json[i].print_info.pressure.extruder1 + "</td>");
+    tr.append("<td style = 'border-right:solid 1px #c00'>" + json[i].print_info.pressure.extruder2 + "</td>");
+    tr.append("<td>" + json[i].print_info.crosslinking.cl_enabled + "</td>");
+    tr.append("<td>" + json[i].print_info.crosslinking.cl_duration + "</td>");
+    tr.append("<td style = 'border-right:solid 1px #c00'>" + json[i].print_info.crosslinking.cl_intensity + "</td>");
+    tr.append("<td>" + json[i].print_info.resolution.layerNum + "</td>");
+    tr.append("<td>" + json[i].print_info.resolution.layerHeight + "</td>");
+    $('#table').append(tr);
+};
+
+</script>
+
+</body>
