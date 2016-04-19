@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="style_sheet.css">
 
-    <link rel="icon" type="image/gif" href="images/B.gif"/>
+    <link rel="icon" type="image/gif" href="B.gif"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
@@ -21,7 +21,7 @@
 <!-- Create a banner across the top of the site with the BioBots logo -->
 <div id = 'banner'>
 
-    <img src='images/biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
+    <img src='biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
 
     <a href="main.html" style="padding-left:20px;">Home Page</a>
 
@@ -62,7 +62,8 @@
     <label> Duration: </label>
     <input type = "number" name = "dur" id = "dur" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/>
     <label> Intensity: </label>
-    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(1);"/> <br><br>
+    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" 
+    onchange = "updateTable(1);"/> <br><br>
 
 </div>
 
@@ -92,7 +93,8 @@ var user = curr_user;
 
 
 <h2> User Data </h2>
-<strong> This page displays your data, only. Again, you can sort through the data by entering values into the fields above, see statistics in the table on the right, and sort the columns by clicking on their headers!</strong><br><br>
+<strong> This page displays your data, only. Again, you can sort through the data by entering values into the fields above, 
+see statistics in the table on the right, and sort the columns by clicking on their headers!</strong><br><br>
 
 <!-- This label and text box will only be visible when the admin is logged in -->
 <label id = 'select' style="display:none;"> Select a user: </label>
@@ -109,7 +111,7 @@ if (curr_user === 'admin') {
 
 <br><br>
 
-<!-- Create and populate the data table -->
+<!-- Create a data table that will contain only 1 user's data -->
 <div id = 'table1_container'>
 
 <table id = 'table' class = 'sortable'>
@@ -189,6 +191,7 @@ if (curr_user === 'admin') {
 var tab = document.getElementById('table');
 var tab2 = document.getElementById('table_of_stats');
 
+// If the person logged in is not the admin, fill in the table with all of the user's data
 if (!(curr_user === "admin")) {
 	populateTable(curr_user);
 }
