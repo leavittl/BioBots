@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="style_sheet.css">
 
-    <link rel="icon" type="image/gif" href="images/B.gif"/>
+    <link rel="icon" type="image/gif" href="B.gif"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
@@ -21,7 +21,7 @@
 <!-- Create a banner across the top of the site with the BioBots logo -->
 <div id = 'banner'>
 
-    <img src='images/biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
+    <img src='biobots.gif' alt='BioBots Logo' style='width:280px;height:75px'></img><br>
 
     <a href="main.html" style="padding-left:20px;">Home Page</a>
     
@@ -62,7 +62,8 @@
     <label> Duration: </label>
     <input type = "number" name = "dur" id = "dur" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/>
     <label> Intensity: </label>
-    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" onchange = "updateTable(0);"/> <br><br>
+    <input type = "number" name = "intensity" id = "intensity" step= "0.01" min = "0"  style="width:50px;" 
+    onchange = "updateTable(0);"/> <br><br>
 
 </div>
 
@@ -70,7 +71,12 @@
 <div id = 'param_info'>
 
 <h2> Parameter Analysis </h2>
-<strong> Use this page to play around with parameters! If you have a target value for your print data, or if you have certain parameter values that you need to use for your bioprints, enter those into the fields above. Then, the table below will update to show you only the information from print sessions with values close to the ones you selected (within 10%). You can use this page to make smart decisions when selecting your print parameters -- that is, instead of using trial and error to develop the perfect printing protocol, you can look through what has and hasn't worked well for other BioBots users. The columns are sortable, too! </strong><br><br>
+<strong> Use this page to play around with parameters! If you have a target value for your print data, 
+or if you have certain parameter values that you need to use for your bioprints, enter those into the fields above. 
+Then, the table below will update to show you only the information from print sessions with values close to the ones you 
+selected (within 10%). You can use this page to make smart decisions when selecting your print parameters -- that is, 
+instead of using trial and error to develop the perfect printing protocol, you can look through what has and hasn't worked 
+well for other BioBots users. The columns are sortable, too! </strong><br><br>
 
 </div>
 
