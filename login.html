@@ -25,7 +25,8 @@
 
 		var validEmail = false;
 
-		// You can login either by typing "admin" and a password (any password will work for this web app) or by entering in the email address of a BioBots user and, again, any password
+		// You can login either by typing "admin" and a password (any password will work for this web app) 
+		// or by entering in the email address of a BioBots user and, again, any password
 		if (email === "admin") {
 			validEmail = true;
 		}
@@ -40,7 +41,8 @@
 		}
 
 		if (!validEmail) {
-			alert("Sorry! Invalid email. Try again. (The valid emails are of the format user#@gmail.com, where # is a number 0-99. You can also login as 'admin'.)");
+			alert("Sorry! Invalid email. Try again. (The valid emails are of the format user#@gmail.com, "
+			+ "where # is a number 0-99. You can also login as 'admin'.)");
 		}
 
 		else if (password === '') {
@@ -57,7 +59,7 @@
 
 	<div id = 'login'>
 
-		<img src='images/biobots.gif' alt='BioBots Logo' style='width:300px;height:140px'></img>
+		<img src='biobots.gif' alt='BioBots Logo' style='width:300px;height:140px'></img>
 
 		<h1>Sign in to continue to BioBots!</h1>
 
